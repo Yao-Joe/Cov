@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>后台管理控制页面</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi"/>
+    <link rel="stylesheet" href="../../static/css/font.css">
+    <link rel="stylesheet" href="../../static/css/xadmin.css">
+    <script src="../../static/js/jquery.min.js"></script>
+    <script type="text/javascript" src="../../static/lib/layui/layui.js" charset="utf-8"></script>
+    <script src="../../static/js/welcom.js"></script>
+</head>
+<body>
+<div class="x-body layui-anim layui-anim-up">
+    <blockquote class="layui-elem-quote">欢迎管理员：
+        <span class="x-red">admin</span>！当前时间:
+        <span id="datetime">
+					<script>
+						setInterval("document.getElementById('datetime').innerHTML=new Date().toLocaleString();", 1000);
+					</script>
+				</span>
+    </blockquote>
+    <fieldset class="layui-elem-field">
+        <legend>系统操作</legend>
+        <div class="layui-field-box">
+            <div class="layui-col-md12">
+                <div class="layui-card">
+                    <div class="layui-card-body">
+                        <div class="layui-carousel x-admin-carousel x-admin-backlog" lay-anim="" lay-indicator="inside"
+                             lay-arrow="none"
+                             style="width: 100%; height: 90px;">
+                            <div carousel-item="">
+                                <ul class="layui-row layui-col-space10 layui-this">
+                                    <li class="layui-col-xs2">
+                                        <button href="javascript:;" onclick="spider()"
+                                                class="layui-btn layui-btn-warm layui-btn-radius layui-btn-lg"
+                                                style="text-align: center;">
+                                            启动爬虫
+                                        </button>
+                                    </li>
+                                    <li class="layui-col-xs2">
+                                        <a href="/" target="_blank"
+                                           class="layui-btn layui-btn-normal layui-btn-radius layui-btn-lg"
+                                           style="text-align: center;">
+                                            数据监控
+
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+    <fieldset class="layui-elem-field">
+        <legend>系统信息</legend>
+        <div class="layui-field-box">
+            <table class="layui-table">
+                <tbody>
+                <tr>
+                    <th>系统版本</th>
+                    <td>0.0.1内测版</td>
+                </tr>
+                <tr>
+                    <th>服务器地址</th>
+                    <td>127.0.0.1:5000</td>
+                </tr>
+                <tr>
+                    <th>操作系统</th>
+                    <td>Windows 10</td>
+                </tr>
+                <tr>
+                    <th>运行环境</th>
+                    <td>FLASK1.1.2</td>
+                </tr>
+                <tr>
+                    <th>Python版本</th>
+                    <td>3.6.7</td>
+                </tr>
+
+                <th>MYSQL版本</th>
+                <td>5.5.57</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </fieldset>
+
+    <blockquote class="layui-elem-quote layui-quote-nm">众志成城，齐心协力防治疫情！</blockquote>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>区域疫情统计列表</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi"/>
+    <link rel="stylesheet" href="../../static/css/font.css">
+    <link rel="stylesheet" href="../../static/css/xadmin.css">
+    <script src="../../static/js/jquery.min.js"></script>
+    <script type="text/javascript" src="../../static/lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="../../static/js/xadmin.js"></script>
+    <script type="text/javascript" src="../../static/js/old.js"></script>
+    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+<div class="x-nav">
+      <span class="layui-breadcrumb">
+        <a href="">首页</a>
+        <a href="">数据管理</a>
+        <a>
+          <cite>历史区域数据列表</cite></a>
+      </span>
+    <a class="layui-btn layui-btn-primary layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right"
+       href="javascript:location.replace(location.href);" title="刷新">
+        <i class="layui-icon" style="line-height:38px">ဂ</i></a>
+</div>
+<div class="x-body">
+    <div class="layui-row">
+        <form class="layui-form layui-col-md12 x-so">
+            <input class="layui-input" placeholder="开始日" name="start" id="start">
+            <input class="layui-input" placeholder="截止日" name="end" id="end">
+            <span class="layui-btn" onclick="get_search()"><i class="layui-icon">&#xe615;</i></span>
+        </form>
+    </div>
+    <xblock>
+        {#        <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>#}
+    </xblock>
+    <table class="layui-table">
+        <thead>
+        <tr>
+            <th>编号</th>
+            <th>时间</th>
+            <th>累计确诊</th>
+            <th>当日新增确诊</th>
+            <th>剩余疑似</th>
+            <th>当日新增疑似</th>
+            <th>累计治愈</th>
+            <th>当日新增治愈</th>
+            <th>累计死亡</th>
+            <th>当日新增死亡</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody id="old_data">
+
+        </tbody>
+    </table>
+    <div class="page">
+        <div id="page_list">
+
+        </div>
+    </div>
+
+</div>
+</body>
+<style>
+    .layui-form-label {
+        width: 150px !important;
+    }
+</style>
+<div class="x-body" id="old-edit" style="display: none">
+    <form class="layui-form">
+        <div class="layui-form-item">
+            <label for="ds" class="layui-form-label">
+                <span class="x-red">*</span>时间
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" disabled id="ds" name="ds" required lay-verify="required"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label for="confirm" class="layui-form-label">
+                <span class="x-red">*</span>累计确诊
+            </label>
+            <div class="layui-input-inline">
+                <input type="number" id="confirm" name="confirm" required lay-verify="required|number"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label for="confirm_add" class="layui-form-label">
+                <span class="x-red">*</span>当日新增确诊
+            </label>
+            <div class="layui-input-inline">
+                <input type="number" id="confirm_add" name="confirm_add" required lay-verify="required|number"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label for="suspect" class="layui-form-label">
+                <span class="x-red">*</span>剩余疑似
+            </label>
+            <div class="layui-input-inline">
+                <input type="number" id="suspect" name="suspect" required lay-verify="required|number"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label for="suspect_add" class="layui-form-label">
+                <span class="x-red">*</span>当日新增疑似
+            </label>
+            <div class="layui-input-inline">
+                <input type="number" id="suspect_add" name="suspect_add" required lay-verify="required|number"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label for="heal" class="layui-form-label">
+                <span class="x-red">*</span>累计治愈
+            </label>
+            <div class="layui-input-inline">
+                <input type="number" id="heal" name="heal" required lay-verify="required|number"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label for="heal_add" class="layui-form-label">
+                <span class="x-red">*</span>当日新增治愈
+            </label>
+            <div class="layui-input-inline">
+                <input type="number" id="heal_add" name="heal_add" required lay-verify="required|number"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label for="dead" class="layui-form-label">
+                <span class="x-red">*</span>累计死亡
+            </label>
+            <div class="layui-input-inline">
+                <input type="number" id="dead" name="dead" required lay-verify="required|number"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label for="dead_add" class="layui-form-label">
+                <span class="x-red">*</span>当日新增死亡
+            </label>
+            <div class="layui-input-inline">
+                <input type="number" id="dead_add" name="dead_add" required lay-verify="required|number"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label for="L_repass" class="layui-form-label">
+            </label>
+            <button class="layui-btn" lay-filter="edit" lay-submit="">
+                修改
+            </button>
+        </div>
+    </form>
+</div>
+</html>
